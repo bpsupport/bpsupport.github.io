@@ -1,14 +1,3 @@
-
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Suppport Text 5.x Chat</title>
-</head>
-<body>
-<!-- You have to put this piece of JavaScript code into your web page
-Note: Use <!DOCTYPE html> on the page where snippet located for better rendering
--->
 <link type="text/css" rel="stylesheet" href="https://supporttest5x.brightpattern.com/clientweb/chat-client-v4/css/form.css">
 <script type="text/javascript">
     SERVICE_PATTERN_CHAT_CONFIG = {
@@ -16,18 +5,21 @@ Note: Use <!DOCTYPE html> on the page where snippet located for better rendering
         apiUrl: 'https://supporttest5x.brightpattern.com/clientweb/api/v1',
         tenantUrl: 'supporttest5x.brightpattern.com',
         chatPath: 'https://supporttest5x.brightpattern.com/clientweb/chat-client-v4/'
-
-        /*        
-         // Default customer data, it can be collected on current site's context
-         first_name: '',
-         last_name: '',
-         email: '',
-         phone_number: ''
-        */
     };
 </script>
 <script src="https://supporttest5x.brightpattern.com/clientweb/chat-client-v4/js/init.js"></script> 
-
-</body>
-
-</html>
+<button class="js-opens-chat">Chat</button>
+<script type="text/javascript">
+  ;(function() {
+    var targetSelector = '.js-opens-chat';
+    var targets = document.querySelectorAll(targetSelector);
+    [].forEach.call(targets, function(target)
+ {
+      target.addEventListener('click', function(e) {
+        e.preventDefault();
+        var widget = document.querySelector('#sp-chat-widget')
+        widget && widget.click();
+      });
+    });
+  })();
+</script>
