@@ -1,0 +1,178 @@
+
+<html><head></head>
+
+<body style="overflow-wrap: break-word;" onfocusout="parent.setEmailRange();">
+<button id="assign_to_call_button" disabled="true">Assign To Call</button>
+<script>
+
+const AGENTDESKTOP_DOMAIN = 'https://servicenow.brightpattern.com';
+
+const api = (function() {
+    let origin;
+    let targetWindow;
+    const listeners = [
+        'CONVERSATION_LIST'
+    ];
+    const callbacks = {};
+    let requestId = 0;
+
+    function postWindowMessage(request, callback) {
+        if (targetWindow) {
+            if (callback) {
+                registerCallback(request, callback);
+            }
+
+            targetWindow.contentWindow.postMessage(JSON.stringify(request), "*");
+        }
+    }
+
+    function registerCallback(request, callback) {
+        let method = request.command;
+        if (listeners.includes(method)) {
+            if (callbacks[method]) {
+                callbacks[method].push(callback);
+            } else {
+                callbacks[method] = [callback];
+            }
+        } else {
+            // API methods that are not listeners needs an ID in case they are call multiple times in an async manner.
+            request.request_id = String(requestId++);
+            callbacks['#' + request.request_id] = [callback];
+        }
+        return method;
+    }
+
+    function invokeCallbacks(data) {
+        let type = data.command.toUpperCase();
+        let reqId = data.request_id;
+        if (!!reqId) {
+            type = "#" + reqId;
+        }
+        for (let methodName in callbacks) {
+            if (callbacks.hasOwnProperty(methodName) && type === methodName) {
+                for (let i in callbacks[type]) {
+                    if (callbacks[type].hasOwnProperty(i)) {
+                        callbacks[type][i](data);
+                    }
+                }
+                if (!listeners.includes(type)) {
+                    delete callbacks[type];
+                }
+            }
+        }
+    }
+
+    window.addEventListener("message",  function (data) {
+        if (data.origin === origin) {
+            try {
+                let parse = JSON.parse(data.data);
+                if (!!parse) {
+                    invokeCallbacks(parse);
+                }
+            } catch (e) { }
+        }
+    });
+
+    return {
+        init: function (value, callback) {
+                origin = value;
+
+                if (targetWindow) {
+                    targetWindow.parent.removeChild(targetWindow);
+                    targetWindow = null;
+                }
+
+                targetWindow = document.createElement("iframe");
+                targetWindow.style.position = "absolute";
+                targetWindow.src = origin + '/agentdesktop/AgentDesktopSdkProxy.jsp';
+                targetWindow.style.top = "-1000px";
+
+                targetWindow.addEventListener('load', callback);
+
+                if (document.body) {
+                    document.body.appendChild(targetWindow);
+                } else {
+                    console.error("init() needs to be invoked after page load, or from inside <body>");
+                }
+        },
+
+        postVariable: function (item_id, name, value) {
+            postWindowMessage({
+                command: 'POST_VARIABLE',
+                item_id: item_id,
+                name: name,
+                value: value
+            });
+        },
+
+        getConversationList: function () {
+            postWindowMessage({
+                command: 'CONVERSATION_LIST',
+                data: '',
+            });
+        },
+
+        addConversationListHandler: function (callback) {
+            registerCallback({command: 'CONVERSATION_LIST'}, callback);
+        },
+
+    };
+
+})();
+
+let selectedItemId = null;
+const assignButton = document.getElementById('assign_to_call_button');
+
+api.init(AGENTDESKTOP_DOMAIN, function() {
+    api.getConversationList();
+});
+
+api.addConversationListHandler(function (data) {
+    console.log('#ConvData: ', data);
+    selectedItemId = data.data.selected && data.data.selected.id;
+    if (selectedItemId) {
+        assignButton.disabled = false;
+    }
+});
+
+function extractURLParams(url) {
+
+    const paramsMap = {};
+
+    if (url) {
+    
+        const paramUrl = url.split('?').slice(1).join('?');
+        if (paramUrl.length) {
+
+            const params = paramUrl.split('&');
+            params.reduce(function(paramMap, param) {
+
+                const splits = param.split('=');
+                if (splits.length) {
+                    const name = decodeURIComponent(splits.shift()),
+                        value = decodeURIComponent(splits.join('='));
+                    paramMap[name] = value;
+                }
+                return paramMap;
+            }, paramsMap);
+        }
+    }
+    return paramsMap;
+}
+
+function connectContact (type, id) {
+    api.postVariable(selectedItemId, 'connected_object_type', type);
+    api.postVariable(selectedItemId, 'connected_object_id', id);
+}
+
+assignButton.addEventListener('click', function() {
+    const parmMap = extractURLParams(window.location.href);
+    if (parmMap.id && parmMap.typename) {
+        connectContact(parmMap.typename, parmMap.id);
+    } else {
+        console.warn("BP Api: Cannot get open object data");
+    }
+});
+
+</script>
+</body></html>
