@@ -27,6 +27,11 @@ a:hover, a:active {
   background-color: red;
 }
 
+.logo {
+  padding: 100px 100px 100px 100px;
+  margin: auto;
+}
+
 /* regular desktop styles */
 
 @media only screen 
