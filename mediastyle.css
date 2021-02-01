@@ -32,6 +32,13 @@ a:hover, a:active {
   margin: auto;
 }
 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 /* regular desktop styles */
 
 @media only screen 
