@@ -1,6 +1,6 @@
 /* ugly backgroundd */
 body {
-  background-image: url("mosaic.jpg");
+  background-image: url("/mosaic.jpg");
   background-repeat: repeat-y;
   background-color: lightblue;
 }
