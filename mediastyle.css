@@ -1,3 +1,9 @@
+/* ugly backgroundd */
+body {
+  background-image: url("mosaic.jpg");
+  background-repeat: repeat-y;
+}
+
 /* regular desktop styles */
 
 @media only screen 
