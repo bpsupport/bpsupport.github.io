@@ -1,7 +1,8 @@
 /* ugly backgroundd */
 body {
     background-image: url("mosaic.jpg");
-    background-color: lightblue;  
+    background-color: lightblue;
+    opacity: .4;
 }
 
 h1 {
