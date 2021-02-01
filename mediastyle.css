@@ -1,0 +1,13 @@
+/* regular desktop styles */
+
+@media only screen 
+and (max-device-width: 600px)
+ { ... }
+
+/* mobile only styles when the device is 0-600px in maximum width */
+
+@media only screen 
+and (max-device-width: 1000px)
+{ ... }
+
+/* mobile only styles when the device is up to 1000px in maximum width */
