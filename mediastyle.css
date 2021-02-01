@@ -1,8 +1,7 @@
 /* ugly backgroundd */
 body {
-  background-image: url("/mosaic.jpg");
-  background-repeat: repeat-y;
-  background-color: lightblue;
+    background-image: url("mosaic.jpg");
+    background-color: lightblue;  
 }
 
 h1 {
@@ -13,6 +12,19 @@ h1 {
 p {
   font-family: verdana;
   font-size: 20px;
+}
+
+a:link, a:visited {
+  background-color: #3a3b3c;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: red;
 }
 
 /* regular desktop styles */
