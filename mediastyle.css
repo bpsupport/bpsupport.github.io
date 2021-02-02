@@ -65,3 +65,8 @@ and (max-device-width: 1000px)
 { ... }
 
 /* mobile only styles when the device is up to 1000px in maximum width */
+
+@viewport {
+  width: device-width ;
+  zoom: 1.0 ;
+}
