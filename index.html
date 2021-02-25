@@ -50,7 +50,6 @@ formBody = formBody.join("&");
 console.log(formBody);
 
 fetch('https://supporttest5x.brightpattern.com/configapi/v2/oauth/token', {
-  mode: 'no-cors',
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
