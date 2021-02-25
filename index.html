@@ -32,44 +32,6 @@ Note: Use <!DOCTYPE html> on the page where snippet located for better rendering
 };
 </script>
 <script src="https://supporttest5x.brightpattern.com/clientweb/chat-client-v4/js/init.js"></script> 
-<!-- Try to get an auth token
-
-var url = "https://supporttest5x.brightpattern.com/configapi/v2/oauth/token"+formBody;
-
-var xhr = new XMLHttpRequest();
-xhr.open("POST", url);
-
-xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      console.log(xhr.responseText);
-   }};
-   
-xhr.send();
--->
-    <script>
-
-
-var formBody = [];
-for (var property in data) {
-  var encodedKey = encodeURIComponent(property);
-  var encodedValue = encodeURIComponent(data[property]);
-  formBody.push(encodedKey + "=" + encodedValue);
-}
-formBody = formBody.join("&");
-
-var data = '{"client_id":"matthew.simpson","client_secret":"7MMBYB1PdlgCP6ivTkyxC3mUjvc3sqGeiXvTn8soCYveZrj6R8suzSkLROpjfpVX", "scope":"supporttest5x","grant_type":"client_credentials"}';
-
-
-fetch('https://supporttest5x.brightpattern.com/configapi/v2/oauth/token', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  },
-  body: formBody
-})
 
 </script>
 </body>
