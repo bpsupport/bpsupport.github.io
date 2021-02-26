@@ -35,34 +35,6 @@ Note: Use <!DOCTYPE html> on the page where snippet located for better rendering
 
 </script>
 
-<script>
-var obj;
-
-var details = {'client_id':'admin','client_secret':'j5nQcFTtiRNoiWi4Pqs4Fmm1XTmNlvehIaAWrp6r0eCYwfArcgEpxsqH5ZjWGwzM', 'scope':'supporttest5x.brightpattern.com','grant_type':'client_credentials'};
-
-var formBody = [];
-for (var property in details) {
-  var encodedKey = encodeURIComponent(property);
-  var encodedValue = encodeURIComponent(details[property]);
-  formBody.push(encodedKey + "=" + encodedValue);
-}
-formBody = formBody.join("&");
-console.log(formBody);
-
-fetch('https://supporttest5x.brightpattern.com/configapi/v2/oauth/token', {
-  mode: 'no-cors',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  },
-  body: formBody
-})
-  .then(res => res.json())
-  .then(data => obj = data)
-  .then(() => console.log(obj))
-
-</script>
-
 </body>
 
 </html>
