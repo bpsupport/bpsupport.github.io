@@ -1,6 +1,6 @@
 /* ugly backgroundd */
 body {
-	background: linear-gradient(-69deg, #ffffff, #cb94ff, #23a6d5, #fffb00, #ba5a00);
+	background: linear-gradient(-69deg, #FF69B4, #ffffff, #cb94ff, #23a6d5, #fffb00, #ba5a00);
 	background-size: 500% 500%;
 	animation: gradient 20s ease infinite;
 }
