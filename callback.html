@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Suppport Text 5.x Chat</title>
+  <link href="mediastyle.css" rel="stylesheet" type="text/css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="logo">
+    <img src="logo.svg" stye alt="Bright Pattern">
+    </div>
+    <h1>
+<br>
+<br>
+<a href="index.html">Hill</a></h1>
+<br>
+<br>
+<h1>
+<a href="test.html">Gulf</a></h1>
+
+<!-- You have to put this piece of JavaScript code into your web page
+Note: Use <!DOCTYPE html> on the page where snippet located for better rendering
+-->
+<link type="text/css" rel="stylesheet" href="https://supporttest5x.brightpattern.com/clientweb/chat-client-v4/css/form.css">
+<script type="text/javascript">
+    SERVICE_PATTERN_CHAT_CONFIG = {
+        appId: '64d8050b3d4f48eb86dc0fb5603e9b5f',
+        apiUrl: 'https://supporttest5x.brightpattern.com/clientweb/api/v1',
+        tenantUrl: 'supporttest5x.brightpattern.com',
+        chatPath: 'https://supporttest5x.brightpattern.com/clientweb/chat-client-v4/'
+    };
+</script>
+
+<script src="https://supporttest5x.brightpattern.com/clientweb/chat-client-v4/js/init.js"></script> 
+ <div class="sp-callback-form" id="sp-callback-form">
+   <label>Request a callback</label>
+   <label>&nbsp;</label>
+   <label>Name:</label>
+   <input type="text" id="sp-callback-name" placeholder="Name" />
+   <label>Phone:</label>
+   <input type="tel" id="sp-callback-phone_number" placeholder="Phone" />
+   <button id="sp-callback-submit-inline">Request Call</button>
+</div>
+
+</body>
+
+</html>
